@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SleepCase - Dashboard de Sono</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Básico do Body e Fundo --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif; 
+            display: flex;
+            min-height: 100vh;
+            color: #F0E6D2; 
+            /* Configuração da Imagem de Fundo */
+            background-image: url('Sleep analysis-cuate.png'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            /* Aplica um escurecimento suave para o dashboard se destacar */
+            background-color: #1A2C4A;
+            background-blend-mode: multiply; 
+        }
+        
+        /* Ajuste do flex para o dashboard ficar no topo e centralizado horizontalmente */
+        body {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- CSS do Dashboard (Página Inicial) --- */
+        .content-area {
+            padding: 20px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%; /* Permite que o conteúdo use a largura máxima */
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #F0E6D2; 
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .status-message {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .score-highlight {
+            color: #D7C4F2; 
+            font-weight: bold;
+        }
+
+        /* --- Navegação (Header) --- */
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            width: 100%;
+            background-color: rgba(26, 44, 74, 0.8); 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #F0E6D2;
+        }
+
+        #navbar nav a {
+            color: #D7C4F2;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1em;
+            transition: color 0.2s;
+        }
+
+        #navbar nav a:hover {
+            color: #ffffff;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #logout {
+            background-color: transparent;
+            border: 1px solid #D7C4F2;
+            color: #D7C4F2;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #logout:hover {
+            background-color: #D7C4F2;
+            color: #1A2C4A;
+        }
+
+        /* --- Grid de Cartões (Dashboard) --- */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr; 
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(43, 62, 94, 0.7); 
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: #D7C4F2;
+            margin-top: 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Score Principal */
+        .main-score {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #F0E6D2; 
+            color: #1A2C4A;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+        }
+
+        .score-circle strong {
+            font-size: 2.5em;
+            line-height: 1;
+        }
+
+        .score-circle p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Hora Recomendada */
+        .recommended-time {
+            text-align: center;
+        }
+
+        .big-time {
+            font-size: 3em;
+            font-weight: bold;
+            color: #F0E6D2;
+            margin: 10px 0 25px;
+        }
+
+        .cta-button {
+            background-color: #D7C4F2;
+            color: #1A2C4A;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #ffffff;
+        }
+
+        /* Métricas Sumário */
+        .metrics-summary ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .metrics-summary li {
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dica */
+        .tip-of-the-day {
+            grid-column: 1 / -1; 
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(215, 196, 242, 0.1); 
+            border-radius: 15px;
+        }
+
+        .tip-of-the-day h3 {
+            color: #D7C4F2;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div id="sleepcase-dashboard">
+    <header id="navbar">
+        <div class="logo">SleepCase</div>
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Diário de Sono</a>
+            <a href="#">Metas & Desafios</a>
+            <a href="#">Configurações</a>
+        </nav>
+        <div class="user-profile">
+            Olá, Ana Silva 🌙
+            <button id="logout">Sair</button>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <h1>Bem-vindo(a) de volta, Ana Silva!</h1>
+        <p class="status-message">Seu Score de Sono de ontem foi: <span class="score-highlight">85 (Bom)</span></p>
+
+        <section class="data-grid">
+
+            <div class="card main-score">
+                <h3>Score de Sono (Últimas 24h)</h3>
+                <div class="score-circle">
+                    <strong>85</strong>
+                    <p>Bom</p>
+                </div>
+                <p>Tempo de Sono Profundo: 1h 45min</p>
+            </div>
+
+            <div class="card large-chart">
+                <h3>Tendência Semanal (Horas Dormidas)</h3>
+                <div class="chart-placeholder" style="height: 150px; background-color: rgba(255, 255, 255, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    [Espaço para o Gráfico de Tendência da Semana]
+                </div>
+                <a href="#" style="display: block; text-align: right; color: #D7C4F2; margin-top: 10px; text-decoration: none;">Ver Análise Completa</a>
+            </div>
+
+            <div class="card recommended-time">
+                <h3>Hora de Dormir Recomendada</h3>
+                <p class="big-time">22:30</p>
+                <button class="cta-button">Definir Lembrete</button>
+            </div>
+
+            <div class="card metrics-summary">
+                <h3>Métricas-Chave</h3>
+                <ul>
+                    <li>Duração Média: 7h 15m</li>
+                    <li>Latência (Tempo para Dormir): 15m</li>
+                    <li>Sonecas Registradas: 2</li>
+                </ul>
+            </div>
+            
+            <div class="card large-chart">
+                 <h3>Relatório Rápido da Última Noite</h3>
+                 <p>Acordou <strong>3 vezes</strong>. Maior interrupção: 15 minutos às 3:45 AM.</p>
+                 <p>O nível de ruído estava <strong>10% acima</strong> do seu normal.</p>
+            </div>
+
+            <div class="card recommended-time">
+                 <h3>Seu Despertar</h3>
+                 <p class="big-time" style="font-size: 2.2em;">07:00 AM</p>
+                 <p>Baseado no seu ciclo circadiano atual.</p>
+            </div>
+            
+
+        </section>
+
+        <section class="tip-of-the-day">
+            <h3>✨ Dica SleepCase Personalizada</h3>
+            <p>Seu sono REM (sonho) está um pouco baixo. Tente relaxar 30 minutos a mais antes de deitar hoje!</p>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
