@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo|default:"Entrar no SleepCase" }}</title> 
+    
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="login-body"> 
+    <div id="sleepcase-login-screen">
+        <div id="login-card">
+            <div class="header">
+                <h1>SleepCase</h1>
+            </div>
+            
+            <h2>Bem-vindo(a) de volta!</h2>
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div style="color: #ff6b6b; margin-bottom: 15px; text-align: left; font-size: 0.9em;">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% elif error_message %}
+                    <p style="color: #ff6b6b; margin-bottom: 15px;">{{ error_message }}</p>
+                {% endif %}
+
+                <div class="form-group">
+                    {{ form.username }} 
+                </div>
+                <div class="form-group">
+                    {{ form.password }}
+                </div>
+                
+                <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                
+                <button type="submit" class="login-button">
+                    🚀 ENTRAR
+                </button>
+            </form>
+            
+            <div class="social-login">
+                <p>--- ou Cadastre-se com ---</p>
+                <div class="social-buttons">
+                    <button class="social-btn google" title="Entrar com Google">
+                        <img src="{% static 'assets/img/google-icon.png' %}" alt="Google">
+                    </button>
+                    <button class="social-btn apple" title="Entrar com Apple">
+                        <img src="{% static 'assets/img/apple-icon.png' %}" alt="Apple">
+                    </button>
+                    <button class="social-btn facebook" title="Entrar com Facebook">
+                        <img src="{% static 'assets/img/facebook-icon.png' %}" alt="Facebook">
+                    </button>
+                </div>
+            </div>
+            
+            <div class="signup-link">
+                Não tem uma conta? <a href="#" style="color: #D7C4F2; text-decoration: none;"><strong>Crie uma conta</strong></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg"> 
+<div id="sleepcase-dashboard">
+    <header id="navbar">
+        <div class="logo">SleepCase</div>
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'registrar_sono' %}" style="font-weight: bold;">Diário de Sono</a>
+            <a href="#">Metas & Desafios</a>
+            <a href="#">Configurações</a>
+        </nav>
+        <div class="user-profile">
+            Olá, {{ user.get_username }} 🌙
+            <a href="{% url 'admin:logout' %}"><button id="logout">Sair</button></a>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <h1>😴 Registrar Novo Período de Sono</h1>
+        <p class="status-message">Preencha os detalhes da sua última noite de sono.</p>
+
+        <form id="sleep-log-form" method="POST" action="{% url 'registrar_sono' %}">
+            {% csrf_token %} <section class="data-grid form-grid">
+                
+                <div class="card log-card large-chart">
+                    <h3>⏰ Horários Chave</h3>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.data_dormiu.id_for_label }}">Data e Hora que você deitou:</label>
+                        {{ form.data_dormiu }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.hora_acordou.id_for_label }}">Data e Hora que você acordou:</label>
+                        {{ form.hora_acordou }}
+                    </div>
+                    
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 25px;">
+                        ⚠️ Dica: Para sono de um dia para o outro, use a data correta em cada campo.
+                    </p>
+                </div>
+
+                <div class="card log-card metrics-summary">
+                    <h3>⭐ Qualidade e Sensação</h3>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.qualidade_sono.id_for_label }}">Avaliação da Qualidade (Ruim/Médio/Bom/Excelente):</label>
+                        {{ form.qualidade_sono }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mood">Como você acordou? (Apenas visual)</label>
+                        <select id="mood" disabled>
+                            <option value="">-- Selecione --</option>
+                            <option value="otimo">Ótimo (Energia Total)</option>
+                            <option value="bom">Bom</option>
+                            <option value="cansado">Cansado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card log-card large-chart full-width">
+                    <h3>📝 Notas e Fatores</h3>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notas da Noite (Apenas visual):</label>
+                        <textarea id="notes" rows="3" placeholder="Ex: Bebi café tarde, acordei 2 vezes por causa do cachorro..." disabled></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label>Fatores Relevantes: (Apenas visual)</label>
+                        <div class="checkbox-options">
+                            <input type="checkbox" id="exercicio" disabled><label for="exercicio">Exercício Físico (dia)</label>
+                            <input type="checkbox" id="alcool" disabled><label for="alcool">Álcool</label>
+                            <input type="checkbox" id="cafeina" disabled><label for="cafeina">Cafeína</label>
+                            <input type="checkbox" id="jantar-tarde" disabled><label for="jantar-tarde">Jantar Tarde</label>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            
+            <button type="submit" class="cta-save">
+                💾 SALVAR REGISTRO DE SONO
+            </button>
+        </form>
+    </main>
+</div>
+</body>
+</html>

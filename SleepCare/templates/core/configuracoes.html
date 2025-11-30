@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title> 
+    
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg">
+
+<div id="sleepcase-dashboard">
+    <header id="navbar">
+        <div class="logo">SleepCase</div>
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
+            <a href="{% url 'dicas_higiene' %}">Metas & Desafios</a>
+            <a href="{% url 'configuracoes' %}" style="font-weight: bold;">Configurações</a>
+        </nav>
+        <div class="user-profile">
+            Olá, {{ user.get_username|default:"Usuário" }} 🌙
+            <a href="{% url 'logout' %}"><button id="logout">Sair</button></a>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <h1>⚙️ Configurações do Sistema</h1>
+        <p class="status-message">Ajuste seu perfil, metas e preferências do SleepCase.</p>
+
+        <section class="settings-container">
+            
+            <aside class="settings-menu">
+                <a href="#perfil" class="menu-item active">👤 Perfil e Conta</a>
+                <a href="#metas" class="menu-item">🎯 Metas de Sono</a>
+                <a href="#notificacoes" class="menu-item">🔔 Notificações</a>
+                <a href="#integracoes" class="menu-item">🔗 Integrações</a>
+                <a href="#seguranca" class="menu-item">🔒 Segurança</a>
+                <a href="#dados" class="menu-item delete-data">🗑️ Gerenciar Dados</a>
+            </aside>
+            
+            <div class="settings-content">
+                
+                <article id="perfil" class="config-section active-section">
+                    <h2>Perfil e Informações Pessoais</h2>
+                    <div class="card settings-card">
+                        
+                        <form method="post">
+                        {% csrf_token %}
+
+                            <div class="profile-header">
+                                <div class="profile-avatar">{{ avatar_text }}</div> 
+                                <div class="profile-info">
+                                    <label for="nome">Nome Completo</label>
+                                    <input type="text" id="nome" name="first_name" value="{{ user.first_name|default:user.username }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" id="email" value="{{ user.email|default:'N/A' }}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nasc">Data de Nascimento (Placeholder)</label>
+                                    <input type="date" id="nasc" value="1995-10-20">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="cta-button save-button">Salvar Alterações</button>
+                        </form>
+                    </div>
+                </article>
+                
+                </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

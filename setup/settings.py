@@ -81,14 +81,16 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 # setup/settings.py
 
+# settings.py
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sleepcare_db',
-        'USER': 'sleepuser',          # <--- NOVO USUÁRIO
-        'PASSWORD': 'Sleep_12345',    # <--- NOVA SENHA
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sleepcare_db',  # Nome do banco de dados que você vai criar
+        'USER': 'sleepuser',     # Usuário do PostgreSQL
+        'PASSWORD': 'Sleep_12345', # Senha do usuário
+        'HOST': 'localhost',     # Onde o PostgreSQL está rodando
+        'PORT': '5432',          # Porta padrão do PostgreSQL
     }
 }
 
@@ -122,7 +124,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

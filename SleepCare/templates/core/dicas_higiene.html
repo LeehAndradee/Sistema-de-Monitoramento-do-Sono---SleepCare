@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg"> 
+<div id="sleepcase-dashboard">
+    
+    <header id="navbar">
+        <div class="logo">SleepCase</div>
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
+            <a href="{% url 'dicas_higiene' %}" style="font-weight: bold;">Metas & Desafios</a> 
+            <a href="#">Configurações</a>
+        </nav>
+        <div class="user-profile">
+            Olá, {{ user.get_username }} 🌙
+            <a href="{% url 'admin:logout' %}"><button id="logout">Sair</button></a>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <h1>📚 Dicas de Higiene do Sono</h1>
+        <p class="status-message">Melhore sua qualidade de vida com estas recomendações baseadas em ciência.</p>
+
+        <section class="dicas-grid">
+            
+            {% for dica in dicas %}
+            <div class="dica-card">
+                <div class="dica-icone">{{ dica.icone }}</div>
+                <div class="dica-content">
+                    <h3>{{ dica.titulo }}</h3>
+                    <p>{{ dica.descricao }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </section>
+        
+    </main>
+</div>
+</body>
+</html>

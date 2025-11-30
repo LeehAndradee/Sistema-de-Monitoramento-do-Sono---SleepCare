@@ -1,19 +1,17 @@
 from django.contrib import admin
-from .models import RegistroSono # Importando o modelo RegistroSono
+from .models import RegistroSono
 
 @admin.register(RegistroSono)
 class RegistroSonoAdmin(admin.ModelAdmin):
-    # Campos que serão exibidos na tabela da lista de registros
+    # A ÚNICA LINHA QUE VOCÊ PRECISA CONFERIR
     list_display = (
         'usuario', 
         'data_dormiu', 
-        'data_acordou', 
         'qualidade', 
-        'total_horas' # Este campo é a propriedade calculada (tempo total de sono)
+        'total_horas', 
+        'alerta_saude' # <--- ESTE CAMPO DEVE ESTAR AQUI!
     )
-    
-    # Adiciona filtros laterais (Filtrar por qualidade)
     list_filter = ('qualidade',)
+    search_fields = ('usuario__username', 'qualidade')
+
     
-    # Adiciona barra de busca
-    search_fields = ('usuario__username', 'qualidade') # Permite buscar pelo nome do usuário
