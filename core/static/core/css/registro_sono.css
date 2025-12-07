@@ -1,136 +1,141 @@
-/* ===========================
-   ESTILO GERAL
-=========================== */
+/* Fonte Geral */
 body {
-    font-family: 'Inter', sans-serif;
-    background: #ffffff;
+    font-family: "Inter", sans-serif;
+    background: #fff;
     margin: 0;
     padding: 0;
-    color: #222;
 }
 
-#registro-container {
-    max-width: 850px;
-    margin: 60px auto;
-    padding: 50px 45px;
-    background: #fff;
-    border-radius: 25px;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+/* Container principal */
+.sleep-wrapper {
+    max-width: 700px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
 }
 
-/* ===========================
-   TÍTULO
-=========================== */
-#registro-container h1 {
-    font-size: 2.3rem;
+/* Títulos principais */
+.page-title {
+    font-size: 2rem;
     font-weight: 700;
-    color: #5A3BE7;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    color: #43238f;
 }
 
-/* ===========================
-   SEÇÕES
-=========================== */
-.section-title {
-    margin-top: 40px;
-    margin-bottom: 10px;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #222;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Dá mais respiro nos blocos */
-.section-block {
-    margin-bottom: 35px;
-}
-
-/* ===========================
-   PARÁGRAFOS
-=========================== */
-#registro-container p {
-    margin-bottom: 25px;
-    font-size: 1.05rem;
-    color: #444;
-}
-
-/* ===========================
-   INPUTS E CAMPOS
-=========================== */
-label {
-    font-weight: 500;
-    margin-top: 15px;
-    display: block;
-}
-
-input, select, textarea {
-    width: 100%;
-    margin-top: 8px;
-    margin-bottom: 18px;
-    padding: 14px;
-    border: 1px solid #d5d5d5;
-    border-radius: 12px;
+.page-subtitle {
     font-size: 1rem;
-    background: #fafafa;
-    transition: 0.2s;
+    color: #555;
+    margin-bottom: 25px;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #5A3BE7;
-    outline: none;
-    background: #fff;
-    box-shadow: 0 0 0 4px rgba(90, 59, 231, 0.15);
-}
-
-textarea {
-    height: 110px;
-    resize: none;
-}
-
-/* ===========================
-   CHECKBOXES
-=========================== */
-.checkbox-group {
+/* Formulário */
+.sleep-form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 12px;
+    flex-direction: column;
+    gap: 25px;
 }
 
-.checkbox-group label {
+/* Card de cada seção */
+.form-card {
+    background: #fff !important;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #e5e8ef;
+}
+
+/* Título das seções */
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs */
+input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d9dce3;
+    background: #fafafa;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Foco */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #7c4dff;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.15);
+}
+
+/* Checkbox list */
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.checkbox-list label {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-right: 10px;
+    gap: 8px;
+    font-weight: 500;
 }
 
-/* ===========================
-   BOTÃO
-=========================== */
-button {
-    margin-top: 40px;
+/* Dicas */
+.tip {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: -10px;
+}
+
+/* Botão */
+.btn-save {
     width: 100%;
-    padding: 18px;
-    border: none;
-    background: #5A3BE7;
+    padding: 14px;
+    background: #7c4dff;
     color: white;
-    font-size: 1.2rem;
+    border: none;
+    font-size: 1.05rem;
     font-weight: 600;
-    border-radius: 14px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: 0.2s;
+    margin-top: 10px;
+    transition: 0.2s ease;
 }
 
-button:hover {
-    background: #472bc4;
-    transform: translateY(-2px);
+.btn-save:hover {
+    background: #693fe0;
 }
 
-button:active {
-    transform: translateY(0);
+.btn-save:active {
+    background: #5733bb;
+}
+
+.message.success {
+    background: #d4f8d4;
+    border-left: 5px solid #2e7d32;
+    padding: 12px;
+    border-radius: 6px;
+    color: #1b5e20;
+    margin-bottom: 15px;
 }

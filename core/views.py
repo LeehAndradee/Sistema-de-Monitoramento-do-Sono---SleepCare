@@ -100,6 +100,8 @@ def dashboard(request):
 # -------------------------------------------------------------
 # REGISTRAR SONO
 # -------------------------------------------------------------
+from django.contrib import messages
+
 @login_required
 def registrar_sono(request):
     if request.method == 'POST':
@@ -108,14 +110,14 @@ def registrar_sono(request):
             registro = form.save(commit=False)
             registro.usuario = request.user
             registro.save()
-            return redirect('dashboard')
+            messages.success(request, "Registro salvo com sucesso!")
+            return redirect('registrar_sono')
+        else:
+            messages.error(request, "Erro ao salvar registro.")
     else:
         form = RegistroSonoForm()
 
-    return render(request, 'core/registro_sono.html', {
-        'titulo': 'Registrar Sono',
-        'form': form
-    })
+    return render(request, 'core/registro_sono.html', {'form': form})
 
 
 # -------------------------------------------------------------

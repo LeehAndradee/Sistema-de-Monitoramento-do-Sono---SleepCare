@@ -4,48 +4,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }}</title>
-    
+    <title>Dicas de Higiene do Sono</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/dicas_higiene.css' %}">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body class="dashboard-bg"> 
+
+<body style="background:#f8f7fb;">
+
 <div id="sleepcase-dashboard">
-    
+
+    <!-- 🔵 MENU IGUAL AO DASHBOARD -->
     <header id="navbar">
         <div class="logo">SleepCase</div>
         <nav>
             <a href="{% url 'dashboard' %}">Dashboard</a>
             <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
-            <a href="{% url 'dicas_higiene' %}" style="font-weight: bold;">Metas & Desafios</a> 
-            <a href="#">Configurações</a>
+            <a href="{% url 'dicas_higiene' %}" style="font-weight: bold;">Metas & Dicas</a>
+            <a href="{% url 'configuracoes' %}">Configurações</a>
         </nav>
         <div class="user-profile">
             Olá, {{ user.get_username }} 🌙
-            <a href="{% url 'admin:logout' %}"><button id="logout">Sair</button></a>
+            <a href="{% url 'admin:logout' %}">
+                <button id="logout">Sair</button>
+            </a>
         </div>
     </header>
 
+    <!-- 🔵 CONTEÚDO DA PÁGINA -->
     <main class="content-area">
+
         <h1>📚 Dicas de Higiene do Sono</h1>
-        <p class="status-message">Melhore sua qualidade de vida com estas recomendações baseadas em ciência.</p>
+        <p class="status-message">
+            Melhore sua qualidade de vida com práticas simples e eficazes.
+        </p>
 
         <section class="dicas-grid">
-            
-            {% for dica in dicas %}
+
+            <!-- As dicas foram adicionadas manualmente -->
             <div class="dica-card">
-                <div class="dica-icone">{{ dica.icone }}</div>
-                <div class="dica-content">
-                    <h3>{{ dica.titulo }}</h3>
-                    <p>{{ dica.descricao }}</p>
-                </div>
+                <div class="dica-icone">🌙</div>
+                <h3>Mantenha um horário regular</h3>
+                <p>Manter horários fixos regula o ciclo do sono e aumenta sua disposição.</p>
             </div>
-            {% endfor %}
-            
+
+            <div class="dica-card">
+                <div class="dica-icone">📵</div>
+                <h3>Evite telas antes de dormir</h3>
+                <p>A luz azul atrapalha a melatonina e dificulta adormecer.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">☕</div>
+                <h3>Corte cafeína à tarde</h3>
+                <p>Café e energéticos podem atrasar o sono.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🍽️</div>
+                <h3>Evite refeições pesadas</h3>
+                <p>Comer tarde prejudica a digestão e o sono.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🏋️</div>
+                <h3>Faça exercícios</h3>
+                <p>Melhora o sono, mas evite treinos intensos à noite.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🧘</div>
+                <h3>Crie uma rotina relaxante</h3>
+                <p>Prepare seu corpo com hábitos calmantes antes de dormir.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🌡️</div>
+                <h3>Regule a temperatura do quarto</h3>
+                <p>Entre 18 e 22°C favorecem o descanso.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🔇</div>
+                <h3>Reduza luz e barulho</h3>
+                <p>Ambientes escuros e silenciosos melhoram o sono profundo.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">📔</div>
+                <h3>Use um diário do sono</h3>
+                <p>Identifique padrões e fatores que afetam seu descanso.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🌤️</div>
+                <h3>Pegue luz pela manhã</h3>
+                <p>Reforça o ritmo biológico e melhora o sono noturno.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">😴</div>
+                <h3>Evite cochilos longos</h3>
+                <p>Sonecas grandes atrapalham o sono da noite.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🍷</div>
+                <h3>Evite álcool</h3>
+                <p>Interfere no sono profundo e causa despertares.</p>
+            </div>
+
+            <div class="dica-card">
+                <div class="dica-icone">🧠</div>
+                <h3>Controle pensamentos</h3>
+                <p>Técnicas de relaxamento ajudam a adormecer mais rápido.</p>
+            </div>
+
         </section>
-        
+
     </main>
 </div>
+
 </body>
 </html>

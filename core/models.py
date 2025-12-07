@@ -2,43 +2,32 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class RegistroSono(models.Model):
-    OPCOES_QUALIDADE = [
-        ('ruim', 'Ruim'),
-        ('medio', 'Médio'),
-        ('bom', 'Bom'),
-        ('excelente', 'Excelente'),
-    ]
-
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    data_dormiu = models.DateTimeField(verbose_name="Horário que foi dormir")
-    data_acordou = models.DateTimeField(verbose_name="Horário que acordou")
-    qualidade = models.CharField(
-        max_length=20,
-        choices=OPCOES_QUALIDADE,
-        verbose_name="Qualidade do Sono"
-    )
+
+    data_dormiu = models.DateTimeField()
+    data_acordou = models.DateTimeField()
+
+    QUALIDADE_CHOICES = [
+        (1, "Muito ruim"),
+        (2, "Ruim"),
+        (3, "Regular"),
+        (4, "Boa"),
+        (5, "Excelente"),
+    ]
+    qualidade = models.IntegerField(choices=QUALIDADE_CHOICES)
+
+    COMO_ACORDOU_CHOICES = [
+        ("cansado", "Cansado"),
+        ("ok", "Normal"),
+        ("bem", "Bem disposto"),
+    ]
+    como_acordou = models.CharField(max_length=20, choices=COMO_ACORDOU_CHOICES)
+
+    notas_noite = models.TextField(blank=True)
+
+    exercicio_fisico = models.BooleanField(default=False)
+    alcool = models.BooleanField(default=False)
+    cafeina = models.BooleanField(default=False)
+    jantar_tarde = models.BooleanField(default=False)
+
     criado_em = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Registro de Sono"
-        verbose_name_plural = "Registros de Sono"
-        ordering = ['-data_dormiu']
-
-    def __str__(self):
-        return f"{self.usuario.username} - {self.data_dormiu.strftime('%d/%m/%Y')}"
-
-    @property
-    def total_horas(self):
-        diferenca = self.data_acordou - self.data_dormiu
-        if diferenca.total_seconds() < 0:
-            return 0.0
-        return round(diferenca.total_seconds() / 3600, 2)
-
-    def alerta_saude(self):
-        if self.total_horas < 7:
-            return "⚠️ Você dormiu menos do que o recomendado"
-        elif self.total_horas > 12:
-            return "❓ Atenção: Verifique as datas (muitas horas)"
-        return "✅ Seu sono está adequado"
-
-    alerta_saude.short_description = "Alerta de Saúde"

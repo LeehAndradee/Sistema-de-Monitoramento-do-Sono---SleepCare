@@ -19,7 +19,7 @@
             <a href="{% url 'dashboard' %}" style="font-weight: bold;">Dashboard</a>
             <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
             <a href="{% url 'dicas_higiene' %}">Metas & Desafios</a>
-            <a href="#">Configurações</a>
+            <a href="{% url 'configuracoes' %}">Configurações</a>
         </nav>
         <div class="user-profile">
             Olá, {{ user.get_username }} 🌙
