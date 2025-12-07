@@ -12,3 +12,8 @@ urlpatterns = [
     path('dicas/', views.dicas_higiene_sono, name='dicas_higiene'),
     path('configuracoes/', views.configuracoes_view, name='configuracoes'), # <-- ROTA NECESSÁRIA
 ]
+
+
+
+
+

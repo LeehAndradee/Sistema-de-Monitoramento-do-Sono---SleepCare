@@ -1,0 +1,194 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+/* Fundo geral */
+body {
+    background: #f8f7fb;
+    color: #333;
+}
+
+/* Navbar */
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 18px 40px;
+    border-bottom: 1px solid #e3dffd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#navbar .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #6a42d7;
+}
+
+#navbar nav a {
+    margin: 0 14px;
+    text-decoration: none;
+    color: #6a42d7;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+#navbar nav a:hover {
+    color: #43238f;
+}
+
+#navbar #logout {
+    background: #6a42d7;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#navbar #logout:hover {
+    background: #43238f;
+}
+
+/* Área principal */
+.content-area {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #43238f;
+    margin-bottom: 10px;
+}
+
+.status-message {
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+
+/* Grade dos cards */
+.data-grid {
+    display: grid;
+    gap: 22px;
+    margin-bottom: 40px;
+}
+
+.summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e9e4fb;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: #6a42d7;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.big-metric {
+    font-size: 44px;
+    font-weight: 700;
+    color: #43238f;
+}
+
+.medium-metric {
+    font-size: 26px;
+    color: #43238f;
+}
+
+.subtitle {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Tabela */
+.recent-logs h2 {
+    color: #43238f;
+    margin-bottom: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
+}
+
+.data-table thead {
+    background: #6a42d7;
+    color: white;
+}
+
+.data-table th {
+    padding: 14px;
+    font-size: 15px;
+    text-align: left;
+}
+
+.data-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eeeafc;
+}
+
+.data-table tbody tr:hover {
+    background: #f1ecff;
+}
+
+.no-records-message {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+}
+
+.no-records-message a {
+    color: #6a42d7;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Labels de status */
+.alert-bom {
+    background: #d3ffe4;
+    color: #0a7a3c;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.alert-regular {
+    background: #fff4d3;
+    color: #946b00;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.alert-ruim {
+    background: #ffd7d7;
+    color: #a30000;
+    padding: 6px 12px;
+    border-radius: 10px;
+}

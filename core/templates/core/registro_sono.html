@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Sono</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'core/css/registro_sono.css' %}">
+</head>
+
+<body>
+
+<div id="registro-container">
+    <h1>😴 Registrar Novo Período de Sono</h1>
+
+    <p>Preencha os detalhes da sua última noite de sono.</p>
+
+    <!-- Horários -->
+    <div class="section-title">⏰ Horários Chave</div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="data_dormiu">Data e Hora que você deitou:</label>
+        {{ form.data_dormiu }}
+
+        <label for="data_acordou">Data e Hora que você acordou:</label>
+        {{ form.data_acordou }}
+
+        <p style="font-size: 0.9rem; color:#555; margin-top:5px;">
+            💡 Dica: Para sono de um dia para o outro, use a data correta nos campos.
+        </p>
+
+        <!-- Qualidade -->
+        <div class="section-title">⭐ Qualidade e Sensação</div>
+
+        <label for="qualidade_sono">Avaliação da Qualidade:</label>
+        {{ form.qualidade_sono }}
+
+        <label for="como_acordou">Como você acordou?</label>
+        {{ form.como_acordou }}
+
+        <!-- Notas -->
+        <div class="section-title">📝 Notas e Fatores</div>
+
+        <label for="notas_noite">Notas da Noite:</label>
+        {{ form.notas_noite }}
+
+        <label>Fatores Relevantes:</label>
+        <div class="checkbox-group">
+            {{ form.exercicio_fisico }} <label>Exercício</label>
+            {{ form.alcool }} <label>Álcool</label>
+            {{ form.cafeina }} <label>Cafeína</label>
+            {{ form.jantar_tarde }} <label>Jantar Tarde</label>
+        </div>
+
+        <button type="submit">SALVAR REGISTRO DE SONO</button>
+    </form>
+</div>
+
+</body>
+</html>

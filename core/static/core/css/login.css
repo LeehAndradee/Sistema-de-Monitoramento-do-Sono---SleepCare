@@ -1,0 +1,120 @@
+/* Cores roxo/azul SleepCare */
+:root {
+    --bg: #0e0b28;
+    --card-bg: #1b1740;
+    --primary: #7b5dff;
+    --primary-hover: #6846ff;
+    --text-light: #ffffff;
+    --text-muted: #b3aee0;
+}
+
+body {
+    background: linear-gradient(135deg, #0e0b28, #1a1440, #0b0a26);
+    height: 100vh;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(123, 93, 255, 0.25);
+    text-align: center;
+}
+
+.logo {
+    color: var(--primary);
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    background: #15112f;
+    border: 1px solid #2e295c;
+    border-radius: 10px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+input::placeholder {
+    color: #887ec9;
+}
+
+.forgot {
+    color: var(--primary);
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 18px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+}
+
+.divider {
+    color: var(--text-muted);
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.social {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 10px;
+    background: #15112f;
+    border: 1px solid #2e295c;
+    border-radius: 10px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.social-btn:hover {
+    background: #221d4d;
+}
+
+.signup {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.signup a {
+    color: var(--primary);
+    text-decoration: none;
+}
