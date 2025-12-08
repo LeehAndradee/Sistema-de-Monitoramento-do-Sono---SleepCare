@@ -42,12 +42,12 @@ class RegistroSono(models.Model):
         verbose_name="Total de Horas Dormidas (Calculado)"
     )
 
-    # ⭐ Qualidade
-    qualidade_sono = models.IntegerField(
-        choices=QUALIDADE_CHOICES,
-        verbose_name="Avaliação da Qualidade do Sono"
-    )
-    # ❌ O campo 'como_acordou' foi removido.
+   qualidade_sono = models.IntegerField(
+    choices=QUALIDADE_CHOICES,
+    verbose_name="Avaliação da Qualidade do Sono",
+    null=True,
+    blank=True
+)
 
     
 
