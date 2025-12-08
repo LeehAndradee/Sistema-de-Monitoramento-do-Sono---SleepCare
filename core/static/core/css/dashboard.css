@@ -1,4 +1,6 @@
-/* Reset */
+/* ============================
+   RESET & BASE
+============================ */
 * {
     margin: 0;
     padding: 0;
@@ -6,13 +8,15 @@
     font-family: "Inter", sans-serif;
 }
 
-/* Fundo geral */
 body {
     background: #f8f7fb;
     color: #333;
+    line-height: 1.4;
 }
 
-/* Navbar */
+/* ============================
+   NAVBAR
+============================ */
 #navbar {
     display: flex;
     justify-content: space-between;
@@ -23,49 +27,71 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(4px);
 }
 
 #navbar .logo {
     font-size: 22px;
     font-weight: 700;
     color: #6a42d7;
+    letter-spacing: -0.5px;
 }
 
-#navbar nav a {
+.nav-links a {
     margin: 0 14px;
     text-decoration: none;
     color: #6a42d7;
     font-weight: 500;
-    transition: 0.2s;
+    transition: 0.25s;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
 }
 
-#navbar nav a:hover {
+.nav-links a:hover {
+    color: #43238f;
+    border-bottom: 2px solid #6a42d7;
+}
+
+.nav-links .active {
+    font-weight: 600;
+    border-bottom: 2px solid #6a42d7;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.username {
+    font-weight: 500;
     color: #43238f;
 }
 
-#navbar #logout {
+.logout-btn {
     background: #6a42d7;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
-    border: none;
     font-weight: 600;
-    cursor: pointer;
+    text-decoration: none;
     transition: 0.2s;
 }
 
-#navbar #logout:hover {
+.logout-btn:hover {
     background: #43238f;
 }
 
-/* Área principal */
+/* ============================
+   MAIN CONTENT
+============================ */
 .content-area {
     max-width: 1100px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-h1 {
+.welcome-title {
     font-size: 30px;
     color: #43238f;
     margin-bottom: 10px;
@@ -77,7 +103,9 @@ h1 {
     margin-bottom: 35px;
 }
 
-/* Grade dos cards */
+/* ============================
+   GRID DE CARDS
+============================ */
 .data-grid {
     display: grid;
     gap: 22px;
@@ -88,46 +116,55 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-/* Cards */
+/* ============================
+   CARD PADRÃO
+============================ */
 .card {
     background: #ffffff;
     border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
+    padding: 24px;
     border: 1px solid #e9e4fb;
-    transition: 0.2s;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
+    transition: 0.25s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.10);
 }
 
 .card h3 {
     color: #6a42d7;
-    margin-bottom: 10px;
     font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
+/* MÉTRICAS */
 .big-metric {
-    font-size: 44px;
+    font-size: 46px;
     font-weight: 700;
     color: #43238f;
 }
 
 .medium-metric {
-    font-size: 26px;
+    font-size: 28px;
     color: #43238f;
+    font-weight: 600;
 }
 
 .subtitle {
     color: #777;
     font-size: 14px;
+    margin-top: 6px;
 }
 
-/* Tabela */
-.recent-logs h2 {
+/* ============================
+   TABELA DE REGISTROS
+============================ */
+.section-title {
     color: #43238f;
+    font-size: 22px;
     margin-bottom: 15px;
 }
 
@@ -139,6 +176,7 @@ h1 {
     box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
 }
 
+/* Cabeçalho */
 .data-table thead {
     background: #6a42d7;
     color: white;
@@ -150,15 +188,17 @@ h1 {
     text-align: left;
 }
 
+/* Linhas */
 .data-table td {
     padding: 14px;
     border-bottom: 1px solid #eeeafc;
 }
 
 .data-table tbody tr:hover {
-    background: #f1ecff;
+    background: #f5f0ff;
 }
 
+/* Mensagem quando não há registros */
 .no-records-message {
     text-align: center;
     color: #777;
@@ -171,12 +211,15 @@ h1 {
     text-decoration: none;
 }
 
-/* Labels de status */
+/* ============================
+   ALERTA DE STATUS
+============================ */
 .alert-bom {
     background: #d3ffe4;
     color: #0a7a3c;
     padding: 6px 12px;
     border-radius: 10px;
+    font-weight: 600;
 }
 
 .alert-regular {
@@ -184,6 +227,7 @@ h1 {
     color: #946b00;
     padding: 6px 12px;
     border-radius: 10px;
+    font-weight: 600;
 }
 
 .alert-ruim {
@@ -191,4 +235,5 @@ h1 {
     color: #a30000;
     padding: 6px 12px;
     border-radius: 10px;
+    font-weight: 600;
 }

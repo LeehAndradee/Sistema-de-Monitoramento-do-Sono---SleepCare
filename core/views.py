@@ -2,17 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.db.models import Avg
+from django.db.models import Avg, Max, Min 
 from django.utils import timezone
 from django.db.models.functions import ExtractWeekDay
 from datetime import timedelta
+from django.contrib import messages # Certifique-se de que está importado
 
 from .models import RegistroSono
 from .forms import RegistroSonoForm
 
 
 # -------------------------------------------------------------
-# MÉTRICAS SEMANAIS
+# MÉTRICAS SEMANAIS (CORRIGIDO PARA total_horas_dormidas)
 # -------------------------------------------------------------
 def get_weekly_sleep_metrics(user):
     hoje = timezone.now().date()
@@ -21,35 +22,40 @@ def get_weekly_sleep_metrics(user):
     dados_semanais = RegistroSono.objects.filter(
         usuario=user,
         data_dormiu__date__gte=sete_dias_atras
-    ).annotate(
-        dia_da_semana=ExtractWeekDay('data_dormiu')
     )
 
     if not dados_semanais.exists():
         return None
-
-    media_total = dados_semanais.aggregate(
-        Avg('total_horas')
-    )['total_horas__avg']
-
-    media_por_dia = dados_semanais.values('dia_da_semana').annotate(
-        avg_horas=Avg('total_horas')
+    
+    # 🔹 1. Média Semanal (CORREÇÃO: Usando 'total_horas_dormidas')
+    agregacao_geral = dados_semanais.aggregate(
+        media=Avg('total_horas_dormidas'),
     )
+    
+    # 🔹 2. Média por Dia da Semana 
+    medias_por_dia = dados_semanais.annotate(
+        dia=ExtractWeekDay('data_dormiu') # 1=Domingo ... 7=Sábado
+    ).values('dia').annotate(
+        media_dia=Avg('total_horas_dormidas')
+    ).order_by('dia')
 
+    # Mapeamento do dia da semana 
     MAPA_DIAS = {
-        1: 'Domingo', 2: 'Segunda', 3: 'Terça', 4: 'Quarta',
-        5: 'Quinta', 6: 'Sexta', 7: 'Sábado'
+        1: "Domingo", 2: "Segunda", 3: "Terça", 4: "Quarta", 
+        5: "Quinta", 6: "Sexta", 7: "Sábado"
     }
-
-    melhor = media_por_dia.order_by('-avg_horas').first()
-    pior = media_por_dia.order_by('avg_horas').first()
+    
+    # Encontra o melhor e pior dia
+    melhor_dia_obj = max(medias_por_dia, key=lambda x: x['media_dia'])
+    pior_dia_obj = min(medias_por_dia, key=lambda x: x['media_dia'])
+    
+    media_semanal = agregacao_geral['media']
 
     return {
-        'media_semanal': f"{media_total:.1f}",
-        'melhor_dia': f"{MAPA_DIAS[melhor['dia_da_semana']]} ({melhor['avg_horas']:.1f}h)",
-        'pior_dia': f"{MAPA_DIAS[pior['dia_da_semana']]} ({pior['avg_horas']:.1f}h)",
+        "media_semanal": f"{media_semanal:.1f}",
+        "melhor_dia": f"{MAPA_DIAS[melhor_dia_obj['dia']]} ({melhor_dia_obj['media_dia']:.1f}h)",
+        "pior_dia": f"{MAPA_DIAS[pior_dia_obj['dia']]} ({pior_dia_obj['media_dia']:.1f}h)",
     }
-
 
 # -------------------------------------------------------------
 # LOGIN
@@ -98,10 +104,8 @@ def dashboard(request):
 
 
 # -------------------------------------------------------------
-# REGISTRAR SONO
+# REGISTRAR SONO (COM CÁLCULO DE DURAÇÃO)
 # -------------------------------------------------------------
-from django.contrib import messages
-
 @login_required
 def registrar_sono(request):
     if request.method == 'POST':
@@ -109,6 +113,11 @@ def registrar_sono(request):
         if form.is_valid():
             registro = form.save(commit=False)
             registro.usuario = request.user
+            
+            # 💡 CÁLCULO DA DURAÇÃO (Armazena em total_horas_dormidas)
+            duracao = registro.data_acordou - registro.data_dormiu
+            registro.total_horas_dormidas = duracao.total_seconds() / 3600
+            
             registro.save()
             messages.success(request, "Registro salvo com sucesso!")
             return redirect('registrar_sono')

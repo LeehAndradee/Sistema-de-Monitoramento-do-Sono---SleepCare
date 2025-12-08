@@ -5,71 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ titulo }}</title>
-    
-   <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
-    
+
+    <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body class="dashboard-bg"> 
+
+<body class="dashboard-bg">
 <div id="sleepcase-dashboard">
-    
+
+    <!-- NAVBAR -->
     <header id="navbar">
         <div class="logo">SleepCase</div>
-        <nav>
-            <a href="{% url 'dashboard' %}" style="font-weight: bold;">Dashboard</a>
+
+        <nav class="nav-links">
+            <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
             <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
             <a href="{% url 'dicas_higiene' %}">Metas & Desafios</a>
             <a href="{% url 'configuracoes' %}">Configurações</a>
         </nav>
+
         <div class="user-profile">
-            Olá, {{ user.get_username }} 🌙
-            <a href="{% url 'admin:logout' %}"><button id="logout">Sair</button></a>
+            <span class="username">Olá, {{ user.first_name|default:user.username }} 🌙</span>
+            <a href="{% url 'admin:logout' %}" class="logout-btn">Sair</a>
         </div>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main class="content-area">
-        <h1>Bem-vindo, {{ user.first_name|default:user.username }}!</h1>
-        <p class="status-message">Seu resumo e análise de sono da última semana.</p>
 
+        <h1 class="welcome-title">Bem-vindo, {{ user.first_name|default:user.username }}!</h1>
+        <p class="status-message">Resumo dos seus registros de sono da última semana.</p>
+
+        <!-- MÉTRICAS RESUMO -->
         <section class="data-grid summary-grid">
-            
+
+            <!-- Média semanal -->
             <div class="card summary-card main-average">
                 {% if metricas %}
                     <h3>📊 Média Semanal de Sono</h3>
                     <p class="big-metric">{{ metricas.media_semanal }}h</p>
-                    <p class="subtitle">Horas em média nos últimos 7 dias</p>
+                    <p class="subtitle">Média de horas nos últimos 7 dias</p>
                 {% else %}
                     <h3>📊 Análise Semanal</h3>
                     <p class="big-metric">--</p>
-                    <p class="subtitle">Registre seu primeiro sono para ver as métricas!</p>
+                    <p class="subtitle">Registre seu primeiro sono para ver suas métricas</p>
                 {% endif %}
             </div>
 
+            <!-- Melhor dia -->
             <div class="card summary-card best-day">
                 <h3>☀️ Melhor Dia</h3>
                 {% if metricas %}
                     <p class="medium-metric">{{ metricas.melhor_dia }}</p>
-                    <p class="subtitle">Dia em que você dormiu mais</p>
+                    <p class="subtitle">Maior quantidade de horas dormidas</p>
                 {% else %}
-                    <p class="medium-metric">N/A</p>
+                    <p class="medium-metric">--</p>
                 {% endif %}
             </div>
 
+            <!-- Pior dia -->
             <div class="card summary-card worst-day">
                 <h3>🌙 Pior Dia</h3>
                 {% if metricas %}
                     <p class="medium-metric">{{ metricas.pior_dia }}</p>
-                    <p class="subtitle">Dia em que você dormiu menos</p>
+                    <p class="subtitle">Menor quantidade de horas dormidas</p>
                 {% else %}
-                    <p class="medium-metric">N/A</p>
+                    <p class="medium-metric">--</p>
                 {% endif %}
             </div>
-            
+
         </section>
-        
+
+        <!-- ÚLTIMOS REGISTROS -->
         <section class="data-grid full-width recent-logs">
-            <h2>Últimos Registros de Sono</h2>
-            
+
+            <h2 class="section-title">Últimos Registros de Sono</h2>
+
             <table class="data-table">
                 <thead>
                     <tr>
@@ -79,26 +90,41 @@
                         <th>Status</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for registro in registros_recentes %}
                     <tr>
                         <td>{{ registro.data_dormiu|date:"d/m/Y H:i" }}</td>
+
+                        <!-- Total de horas -->
                         <td>{{ registro.total_horas|floatformat:1 }}h</td>
+
+                        <!-- Qualidade -->
                         <td>{{ registro.get_qualidade_sono_display }}</td>
-                        <td><span class="alert-{{ registro.alerta_saude|lower|cut:' ' }}">{{ registro.alerta_saude }}</span></td>
+
+                        <!-- Alerta -->
+                        <td>
+                            <span class="alert-{{ registro.alerta_saude|lower|cut:' ' }}">
+                                {{ registro.alerta_saude }}
+                            </span>
+                        </td>
                     </tr>
+
                     {% empty %}
                     <tr>
                         <td colspan="4" class="no-records-message">
-                            Nenhum registro de sono encontrado. <a href="{% url 'registrar_sono' %}">Registre seu primeiro sono agora!</a>
+                            Nenhum registro encontrado.
+                            <a href="{% url 'registrar_sono' %}">Registrar agora</a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
         </section>
-        
+
     </main>
+
 </div>
 </body>
 </html>
