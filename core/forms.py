@@ -5,11 +5,9 @@ class RegistroSonoForm(forms.ModelForm):
     class Meta:
         model = RegistroSono
         fields = [
-            'data_dormiu', 
-            'data_acordou', 
-            'qualidade_sono',
+            'data_dormiu',
+            'data_acordou',
         ]
-        # Exemplo de widgets para data e hora
         widgets = {
             'data_dormiu': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'data_acordou': forms.DateTimeInput(attrs={'type': 'datetime-local'}),

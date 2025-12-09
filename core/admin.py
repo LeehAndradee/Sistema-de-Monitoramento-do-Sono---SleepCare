@@ -3,7 +3,7 @@ from .models import RegistroSono
 
 @admin.register(RegistroSono)
 class RegistroSonoAdmin(admin.ModelAdmin):
-    list_display = ("usuario", "data_dormiu", "data_acordou", "qualidade_sono", "mostrar_total_horas")
+    list_display = ("usuario", "data_dormiu", "data_acordou", "mostrar_total_horas")
     
 
     @admin.display(description="Total de Horas")

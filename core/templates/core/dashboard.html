@@ -86,8 +86,7 @@
                     <tr>
                         <th>Data que Dormiu</th>
                         <th>Horas Dormidas</th>
-                        <th>Qualidade</th>
-                        <th>Status</th>
+                        
                     </tr>
                 </thead>
 
@@ -96,18 +95,8 @@
                     <tr>
                         <td>{{ registro.data_dormiu|date:"d/m/Y H:i" }}</td>
 
-                        <!-- Total de horas -->
-                        <td>{{ registro.total_horas|floatformat:1 }}h</td>
+                       <td>{{ registro.total_horas_dormidas|floatformat:1 }}h</td>
 
-                        <!-- Qualidade -->
-                        <td>{{ registro.get_qualidade_sono_display }}</td>
-
-                        <!-- Alerta -->
-                        <td>
-                            <span class="alert-{{ registro.alerta_saude|lower|cut:' ' }}">
-                                {{ registro.alerta_saude }}
-                            </span>
-                        </td>
                     </tr>
 
                     {% empty %}
