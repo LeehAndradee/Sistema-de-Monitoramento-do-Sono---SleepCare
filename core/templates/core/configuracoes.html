@@ -12,19 +12,22 @@
 <body class="dashboard-bg"> 
 <div id="sleepcase-dashboard">
 
-    <header id="navbar">
-        <div class="logo">SleepCase</div>
-        <nav>
-            <a href="{% url 'dashboard' %}">Dashboard</a>
-            <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
-            <a href="{% url 'dicas_higiene' %}">Dicas & Higiene</a> 
-            <a href="{% url 'configuracoes' %}" class="active-nav">Configurações</a>
-        </nav>
-        <div class="user-profile">
-            Olá, **{{ user.get_username|default:'Usuário' }}** 🌙
-            <a href="{% url 'admin:logout' %}"><button id="logout">Sair</button></a>
-        </div>
-    </header>
+<header id="navbar">
+    <div class="logo">SleepCase</div>
+
+    <nav class="nav-links">
+        <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{% url 'registrar_sono' %}" class="{% if request.resolver_match.url_name == 'registrar_sono' %}active{% endif %}">Diário de Sono</a>
+        <a href="{% url 'dicas_higiene' %}" class="{% if request.resolver_match.url_name == 'dicas_higiene' %}active{% endif %}">Metas & Desafios</a>
+        <a href="{% url 'configuracoes' %}" class="{% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">Configurações</a>
+    </nav>
+
+    <div class="user-profile">
+        <span class="username">Olá, {{ user.first_name|default:user.username }} 🌙</span>
+        <a href="{% url 'admin:logout' %}" class="logout-btn">Sair</a>
+    </div>
+</header>
+
     <main class="content-area">
 
         <h1>⚙️ Configurações do Sistema</h1>
@@ -35,10 +38,7 @@
             <aside class="settings-menu">
                 <a href="#" data-section="perfil" class="menu-item active">👤 Perfil e Conta</a>
                 <a href="#" data-section="metas" class="menu-item">🎯 Metas de Sono</a>
-                <a href="#" data-section="notificacoes" class="menu-item">🔔 Notificações</a>
-                <a href="#" data-section="integracoes" class="menu-item">🔗 Integrações</a>
                 <a href="#" data-section="seguranca" class="menu-item">🔒 Segurança</a>
-                <a href="#" data-section="dados" class="menu-item delete-data">🗑️ Gerenciar Dados</a>
             </aside>
 
             <div class="settings-content">

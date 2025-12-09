@@ -16,22 +16,22 @@
 
 <div id="sleepcase-dashboard">
 
-    <!-- 🔵 MENU IGUAL AO DASHBOARD -->
-    <header id="navbar">
-        <div class="logo">SleepCase</div>
-        <nav>
-            <a href="{% url 'dashboard' %}">Dashboard</a>
-            <a href="{% url 'registrar_sono' %}">Diário de Sono</a>
-            <a href="{% url 'dicas_higiene' %}" style="font-weight: bold;">Metas & Dicas</a>
-            <a href="{% url 'configuracoes' %}">Configurações</a>
-        </nav>
-        <div class="user-profile">
-            Olá, {{ user.get_username }} 🌙
-            <a href="{% url 'admin:logout' %}">
-                <button id="logout">Sair</button>
-            </a>
-        </div>
-    </header>
+  <header id="navbar">
+    <div class="logo">SleepCase</div>
+
+    <nav class="nav-links">
+        <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{% url 'registrar_sono' %}" class="{% if request.resolver_match.url_name == 'registrar_sono' %}active{% endif %}">Diário de Sono</a>
+        <a href="{% url 'dicas_higiene' %}" class="{% if request.resolver_match.url_name == 'dicas_higiene' %}active{% endif %}">Metas & Desafios</a>
+        <a href="{% url 'configuracoes' %}" class="{% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">Configurações</a>
+    </nav>
+
+    <div class="user-profile">
+        <span class="username">Olá, {{ user.first_name|default:user.username }} 🌙</span>
+        <a href="{% url 'admin:logout' %}" class="logout-btn">Sair</a>
+    </div>
+</header>
+
 
     <!-- 🔵 CONTEÚDO DA PÁGINA -->
     <main class="content-area">

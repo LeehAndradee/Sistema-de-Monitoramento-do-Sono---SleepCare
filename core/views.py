@@ -88,19 +88,33 @@ def logout_view(request):
     return redirect('login')
 
 
-# -------------------------------------------------------------
-# DASHBOARD
-# -------------------------------------------------------------
 @login_required
 def dashboard(request):
-    registros = RegistroSono.objects.filter(usuario=request.user)[:7]
+    registros = RegistroSono.objects.filter(
+        usuario=request.user
+    ).order_by('-data_dormiu')[:7]
+
     metricas = get_weekly_sleep_metrics(request.user)
+
+    # --- Dados para o gráfico Ideal vs Real ---
+    labels = []
+    horas_reais = []
+    horas_ideais = []
+
+    for r in registros[::-1]:  # inverte ordem para ficar cronológico
+        labels.append(r.data_dormiu.strftime("%d/%m"))
+        horas_reais.append(r.total_horas_dormidas)
+        horas_ideais.append(8)  # meta fixa
 
     return render(request, 'core/dashboard.html', {
         'titulo': 'Meu Dashboard - SleepCare',
         'registros_recentes': registros,
-        'metricas': metricas
+        'metricas': metricas,
+        'labels': labels,
+        'horas_reais': horas_reais,
+        'horas_ideais': horas_ideais
     })
+
 
 
 # -------------------------------------------------------------
@@ -114,9 +128,6 @@ def registrar_sono(request):
             registro = form.save(commit=False)
             registro.usuario = request.user
             
-            # 💡 CÁLCULO DA DURAÇÃO (Armazena em total_horas_dormidas)
-            duracao = registro.data_acordou - registro.data_dormiu
-            registro.total_horas_dormidas = duracao.total_seconds() / 3600
             
             registro.save()
             messages.success(request, "Registro salvo com sucesso!")

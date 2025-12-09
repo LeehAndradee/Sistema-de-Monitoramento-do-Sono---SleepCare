@@ -19,18 +19,100 @@
             font-size: 24px;
         }
 
-        nav a {
-            margin: 0 15px;
-            color: #b9c2d3;
-            text-decoration: none;
-            font-weight: 500;
-        }
+/* ============================
+   NAVBAR GLOBAL
+============================ */
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 18px 40px;
+    border-bottom: 1px solid #e3dffd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        nav a:hover {
-            color: #fff;
-        }
+/* LOGO */
+#navbar .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #6a42d7;
+    letter-spacing: -0.5px;
+}
+
+/* LINKS CENTRAIS */
+.nav-links {
+    display: flex;
+    gap: 28px;
+    margin: 0 auto;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #6a42d7;
+    font-weight: 500;
+    padding-bottom: 3px;
+    transition: 0.25s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: #43238f;
+    border-bottom: 2px solid #6a42d7;
+}
+
+.nav-links a.active {
+    font-weight: 600;
+    border-bottom: 2px solid #6a42d7;
+}
+
+/* PERFIL DO USUÁRIO */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.username {
+    font-weight: 500;
+    color: #43238f;
+}
+
+.logout-btn {
+    background: #6a42d7;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+    background: #43238f;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 820px) {
+    #navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 25px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+        margin: 0;
+    }
+}
+
 
         h1 {
+            color: #43238f;
             text-align: center;
             margin-top: 40px;
             font-size: 32px;
@@ -53,11 +135,11 @@
         }
 
         .dica-card {
-            background: #151d30;
+            background: #fff;
             padding: 20px;
             border-radius: 14px;
             box-shadow: 0px 4px 14px rgba(0,0,0,0.25);
-            border: 1px solid #20283f;
+            border: 1px solid #fff;
             transition: 0.3s;
         }
 
@@ -72,12 +154,23 @@
         }
 
         .dica-card h3 {
+            color: #000;
             margin: 5px 0;
             font-size: 20px;
         }
 
         .dica-card p {
-            color: #d0d6e2;
+            color: #000;
             font-size: 15px;
             line-height: 1.5;
         }
+
+        .logout-btn {
+    background: #6a42d7;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
