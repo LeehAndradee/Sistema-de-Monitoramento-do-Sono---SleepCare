@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Avg, Max, Min 
 from django.utils import timezone
 from django.db.models.functions import ExtractWeekDay
 from datetime import timedelta
-from django.contrib import messages # Certifique-se de que está importado
+from django.contrib import messages 
+
 
 from .models import RegistroSono
 from .forms import RegistroSonoForm
@@ -165,13 +167,39 @@ def dicas_higiene_sono(request):
 
 
 # -------------------------------------------------------------
-# CONFIGURAÇÕES
+# LOGOUT
 # -------------------------------------------------------------
-@login_required
-def configuracoes_view(request):
-    avatar = request.user.username[0].upper()
 
-    return render(request, 'core/configuracoes.html', {
-        'titulo': 'Configurações',
-        'avatar_text': avatar
-    })
+def logout_view(request):
+    logout(request)  # encerra a sessão do usuário
+    return redirect('login')  # volta para a tela de login
+
+
+def cadastro_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        confirmar = request.POST.get("confirmar")
+
+        # validações básicas
+        if senha != confirmar:
+            messages.error(request, "As senhas não coincidem.")
+            return render(request, "core/cadastro.html")
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Esse usuário já existe.")
+            return render(request, "core/cadastro.html")
+
+        # criar usuário
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=senha
+        )
+        user.save()
+
+        messages.success(request, "Conta criada com sucesso! Faça login.")
+        return redirect("login")
+
+    return render(request, "core/cadastro.html")
