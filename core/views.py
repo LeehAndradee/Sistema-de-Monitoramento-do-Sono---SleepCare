@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.db.models.functions import ExtractWeekDay
 from datetime import timedelta
 from django.contrib import messages 
+from django.contrib.auth import login
 
 
 from .models import RegistroSono
@@ -72,12 +73,8 @@ def login_view(request):
         if form.is_valid():
             login(request, form.get_user())
             return redirect('dashboard')
-
-        return render(request, 'core/login.html', {
-            'titulo': 'Entrar no SleepCare',
-            'form': form,
-            'error_message': 'Credenciais inválidas.'
-        })
+        else:
+            messages.error(request, "Usuário ou senha incorretos.")
 
     return render(request, 'core/login.html', {
         'titulo': 'Entrar no SleepCare',

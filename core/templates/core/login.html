@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SleepCare - Login</title>
     <link rel="stylesheet" href="{% static 'core/css/login.css' %}">
-
 </head>
 
 <body>
@@ -16,6 +15,13 @@
     <div class="card">
         <h1 class="logo">SleepCare</h1>
         <p class="subtitle">Bem-vindo(a) de volta!</p>
+
+        <!-- 🔔 MENSAGENS DE ERRO -->
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="msg {{ msg.tags }}">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
 
         <form method="POST">
             {% csrf_token %}
@@ -28,7 +34,7 @@
             <button type="submit" class="btn">Entrar</button>
         </form>
 
-            <a href="{% url 'cadastro' %}">Criar uma conta</a>
+        <a href="{% url 'cadastro' %}">Criar uma conta</a>
     </div>
 </div>
 

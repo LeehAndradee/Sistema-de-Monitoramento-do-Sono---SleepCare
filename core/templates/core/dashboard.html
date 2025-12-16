@@ -15,7 +15,7 @@
 
     <!-- NAVBAR -->
     <header id="navbar">
-        <div class="logo">SleepCase</div>
+        <div class="logo">SleepCare</div>
 
         <nav class="nav-links">
             <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
@@ -24,17 +24,22 @@
         </nav>
 
         <div class="user-profile">
-            <span class="username">Olá, {{ user.first_name|default:user.username }} 🌙</span>
+            <span class="username">
+                Olá, {{ user.first_name|default:user.username }} 🌙
+            </span>
             <a href="{% url 'logout' %}" class="logout-btn">Sair</a>
-
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="content-area">
 
-        <h1 class="welcome-title">Bem-vindo, {{ user.first_name|default:user.username }}!</h1>
-        <p class="status-message">Resumo dos seus registros de sono da última semana.</p>
+        <h1 class="welcome-title">
+            Bem-vindo, {{ user.first_name|default:user.username }}!
+        </h1>
+        <p class="status-message">
+            Resumo dos seus registros de sono da última semana.
+        </p>
 
         <!-- MÉTRICAS RESUMO -->
         <section class="data-grid summary-grid">
@@ -48,7 +53,9 @@
                 {% else %}
                     <h3>📊 Análise Semanal</h3>
                     <p class="big-metric">--</p>
-                    <p class="subtitle">Registre seu primeiro sono para ver suas métricas</p>
+                    <p class="subtitle">
+                        Registre seu primeiro sono para ver suas métricas
+                    </p>
                 {% endif %}
             </div>
 
@@ -84,24 +91,33 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Data que Dormiu</th>
-                        <th>Horas Dormidas</th>
-                        
+                        <th>Data / Hora que Dormiu</th>
+                        <th>Data / Hora que Acordou</th>
+                        <th>Total Dormido</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for registro in registros_recentes %}
                     <tr>
-                        <td>{{ registro.data_dormiu|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            {{ registro.data_dormiu|date:"d/m/Y" }}<br>
+                            <small>{{ registro.data_dormiu|date:"H:i" }}</small>
+                        </td>
 
-                       <td>{{ registro.total_horas_dormidas|floatformat:1 }}h</td>
+                        <td>
+                            {{ registro.data_acordou|date:"d/m/Y" }}<br>
+                            <small>{{ registro.data_acordou|date:"H:i" }}</small>
+                        </td>
 
+                        <td>
+                            {{ registro.total_horas_dormidas|floatformat:1 }}h
+                        </td>
                     </tr>
 
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="no-records-message">
+                        <td colspan="3" class="no-records-message">
                             Nenhum registro encontrado.
                             <a href="{% url 'registrar_sono' %}">Registrar agora</a>
                         </td>

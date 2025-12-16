@@ -14,9 +14,10 @@
 <div class="card">
     <h2>Criar Conta</h2>
 
+    <!-- 🔔 MENSAGENS DO DJANGO -->
     {% if messages %}
         {% for msg in messages %}
-            <p class="msg">{{ msg }}</p>
+            <p class="msg {{ msg.tags }}">{{ msg }}</p>
         {% endfor %}
     {% endif %}
 

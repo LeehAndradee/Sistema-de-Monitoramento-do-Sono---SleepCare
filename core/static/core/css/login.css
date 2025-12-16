@@ -1,15 +1,14 @@
-/* Cores roxo/azul SleepCare */
 :root {
-    --bg: #0e0b28;
-    --card-bg: #1b1740;
+    --bg: linear-gradient(135deg, #0e0b28, #1b1740);
+    --card-bg: #ffffff;
     --primary: #7b5dff;
     --primary-hover: #6846ff;
-    --text-light: #ffffff;
-    --text-muted: #b3aee0;
+    --text-dark: #1b1740;
+    --text-muted: #6b6b9a;
 }
 
 body {
-    background: #fff;
+    background: var(--bg);
     height: 100vh;
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -20,111 +19,127 @@ body {
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     padding: 20px;
 }
 
 .card {
-    background: var(--primary);
-    padding: 35px;
-    border-radius: 18px;
-    box-shadow: 0 0 25px rgba(123, 93, 255, 0.25);
+    background: var(--card-bg);
+    padding: 45px 40px;
+    border-radius: 22px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     text-align: center;
-    width: 420px;
-    padding: 40px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .logo {
-    color: var(--card-bg);
-    font-size: 32px;
-    margin-bottom: 5px;
+    color: var(--primary);
+    font-size: 34px;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .subtitle {
-    color: #fff;
-    margin-bottom: 25px;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 15px;
 }
 
 input {
     width: 100%;
-    padding: 12px;
-    background: #15112f;
-    border: 1px solid #2e295c;
-    border-radius: 10px;
-    color: var(--text-light);
-    margin-bottom: 12px;
+    padding: 14px;
+    background: #f5f4ff;
+    border: 1px solid #d8d5ff;
+    border-radius: 12px;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(123, 93, 255, 0.15);
 }
 
 input::placeholder {
-    color: #fff;
+    color: #9a97c7;
 }
 
 .forgot {
     color: var(--primary);
-    font-size: 14px;
+    font-size: 13px;
     text-decoration: none;
     display: block;
-    margin-bottom: 18px;
+    text-align: right;
+    margin-bottom: 22px;
 }
 
+.forgot:hover {
+    text-decoration: underline;
+}
 
 .btn {
-    margin-bottom: 20px;
     width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    background: var(--card-bg);
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--primary);
     border: none;
     color: white;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.25s ease;
 }
 
 .btn:hover {
     background: var(--primary-hover);
-}
-
-.divider {
-    color: #fff;
-    margin: 20px 0;
-    font-size: 14px;
-}
-
-.social {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.social-btn {
-    flex: 1;
-    padding: 10px;
-    background: #15112f;
-    border: 1px solid #2e295c;
-    border-radius: 10px;
-    color: var(--text-light);
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.social-btn:hover {
-    background: #221d4d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(123, 93, 255, 0.35);
 }
 
 .signup {
-    color: #fff;
+    margin-top: 25px;
     font-size: 14px;
-    margin-top: 20px;
+    color: var(--text-muted);
 }
 
 .signup a {
-    color: var(--card-bg);
+    color: var(--primary);
+    font-weight: 600;
     text-decoration: none;
 }
 
+.signup a:hover {
+    text-decoration: underline;
+}
 
-.btn-criar-conta {
-    margin-top: 10px;
+.msg {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
 
+.msg.error {
+    background-color: #ffe5e5;
+    color: #a30000;
+}
+
+.msg.success {
+    background-color: #e6f9ee;
+    color: #1b7f4b;
 }
